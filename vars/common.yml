@@ -5,22 +5,6 @@ configure_dotfiles: yes
 configure_sudoers: yes
 configure_terminal: yes
 
-dotfiles_home: "~"
-dotfiles_repo_accept_hostkey: yes
-dotfiles_repo_local_destination: ~/Projects/dotfiles
-dotfiles_repo_version: main
-dotfiles_repo: https://github.com/omissis/dotfiles.git
-dotfiles_files:
-  - .aliases
-  - .gitignore
-  - .inputrc
-  - .osx # TODO: copy only on macos
-  - .tmux.conf
-  - .vimrc
-  - .zshrc
-  # .gitconfig has a dedicated task as it needs to deploy two files,
-  # one of which containing sensitive informations that cannot live in a public repository.
-
 bashrc_path: "{{ lookup('env','HOME') }}/.bashrc"
 zshrc_path: "{{ lookup('env','HOME') }}/.zshrc"
 
@@ -36,8 +20,6 @@ git_packages:
     dest: "{{ zsh_location }}/plugins/zsh-history-substring-search"
   - repo: https://github.com/zsh-users/zsh-autosuggestions.git
     dest: "{{ zsh_location }}/plugins/zsh-autosuggestions"
-  - repo: https://github.com/powerline/fonts.git
-    dest: "{{ lookup('env','HOME') }}/Projects/powerline-fonts"
   - repo: https://github.com/asdf-vm/asdf.git
     dest: "{{ lookup('env', 'HOME') }}/.asdf"
 
@@ -93,44 +75,3 @@ asdf_plugins:
   - name: trivy
     versions: ["0.23.0"]
     global: "0.23.0"
-
-composer_packages: []
-  # - name: drush
-  #   state: present # present/absent, default: present
-  #   version: "^8.1" # default: N/A
-
-gem_packages: []
-  # - name: bundler
-  #   state: present # present/absent/latest, default: present
-  #   version: "~> 1.15.1" # default: N/A
-
-npm_packages:
-  - name: webpack
-    state: present
-    version: "5.69.1"
-  - name: webpack-cli
-    state: present
-    version: "4.9.2"
-  - name: expo-cli
-    state: present
-    version: "5.2.0"
-  - name: yarn
-    state: present
-    version: "1.22.17"
-
-pip_packages: []
-  # - name: mkdocs
-  #   state: present # present/absent/latest, default: present
-  #   version: "0.16.3" # default: N/A
-
-# Glob pattern to ansible task files to run after all other tasks are finished.
-post_provision_tasks: []
-
-# Glob pattern to ansible task files to run after all other tasks are finished.
-post_provision_cmds: []
-#   - cmd: "./install.sh"
-#     dir: "{{ lookup('env','HOME') }}/Projects/powerline-fonts"
-
-# manual_installations:
-# - Browser extensions (1PasswordX, jsonviewer)
-# - Visual Studio Code extensions and configs
